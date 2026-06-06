@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mastery Empire - Learn & Create with AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #0f172a 50%, #1e1b4b 75%, #0f172a 100%);
+            color: #e5e7eb;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 1.5rem 0;
+        }
+
+        nav .container {
+            max-width: 90rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav .tagline {
+            font-size: 0.9rem;
+            color: #a78bfa;
+            margin-left: 1rem;
+        }
+
+        .container {
+            max-width: 90rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 6rem 1.5rem 4rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 50rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat .label {
+            color: #a78bfa;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .apps-section {
+            padding: 4rem 0;
+        }
+
+        .apps-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #a855f7;
+            margin-bottom: 3rem;
+            font-weight: bold;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .app-card {
+            position: relative;
+            border-radius: 1rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .app-card:hover {
+            border-color: rgba(168, 85, 247, 0.8);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.05));
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color);
+        }
+
+        .app-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .app-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #e0e7ff;
+        }
+
+        .app-card .type {
+            display: inline-block;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            color: #c084fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .app-card p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .app-card .cta {
+            display: inline-flex;
+            align-items: center;
+            color: var(--color);
+            font-weight: 600;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .app-card:hover .cta {
+            gap: 1rem;
+        }
+
+        .cta::after {
+            content: '→';
+        }
+
+        .feature-highlight {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .feature-highlight h3 {
+            font-size: 1.5rem;
+            color: #a855f7;
+            margin-bottom: 1rem;
+        }
+
+        .feature-highlight p {
+            color: #cbd5e1;
+            max-width: 50rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: #9ca3af;
+            margin-top: 6rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <nav>
+        <div class="container">
+            <div style="display: flex; align-items: center;">
+                <div class="logo">🚀 AI Mastery Empire</div>
+                <div class="tagline">Master AI Creation in 11 Categories</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Learn & Create with AI</h1>
+            <p>Master AI tools with proven prompts, guides, and best practices. 11 different categories to explore.</p>
+            
+            <div class="stats-hero">
+                <div class="stat">
+                    <div class="number">11</div>
+                    <div class="label">Mastery Guides</div>
+                </div>
+                <div class="stat">
+                    <div class="number">550+</div>
+                    <div class="label">Prompts</div>
+                </div>
+                <div class="stat">
+                    <div class="number">15</div>
+                    <div class="label">Languages</div>
+                </div>
+                <div class="stat">
+                    <div class="number">∞</div>
+                    <div class="label">Possibilities</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="apps-section">
+        <div class="container">
+            <h2>Choose Your Mastery Path</h2>
+            
+            <div class="apps-grid">
+                <a href="music-mastery.html" class="app-card" style="--color: #ec4899;">
+                    <div class="icon">🎵</div>
+                    <h3>Music Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master AI music creation with SUNO & Claude. 50 proven prompts for songs, beats, and melodies.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="business-mastery.html" class="app-card" style="--color: #22c55e;">
+                    <div class="icon">💼</div>
+                    <h3>Business Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master business & marketing with Claude. 50 prompts for strategy, pitches, and planning.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="world-mastery.html" class="app-card" style="--color: #06b6d4;">
+                    <div class="icon">🌍</div>
+                    <h3>World Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master world building with Claude. 50 prompts for magic systems, cultures, and worlds.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="visual-mastery.html" class="app-card" style="--color: #f472b6;">
+                    <div class="icon">🎨</div>
+                    <h3>Visual Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master visual design with Leonardo & Midjourney. 50 prompts for logos, UI, and art.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="gaming-mastery.html" class="app-card" style="--color: #f97316;">
+                    <div class="icon">🎮</div>
+                    <h3>Gaming Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master game creation with Claude. 50 prompts for NPCs, quests, and encounters.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="education-mastery.html" class="app-card" style="--color: #eab308;">
+                    <div class="icon">📚</div>
+                    <h3>Education Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master teaching with Claude. 50 prompts for lessons, quizzes, and curricula.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="lifestyle-mastery.html" class="app-card" style="--color: #f43f5e;">
+                    <div class="icon">❤️</div>
+                    <h3>Lifestyle Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master lifestyle planning with Claude. 50 prompts for events, trips, and activities.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="text-mastery.html" class="app-card" style="--color: #3b82f6;">
+                    <div class="icon">✍️</div>
+                    <h3>Text Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master writing with Claude. 50 prompts for articles, blogs, and copy.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="story-mastery.html" class="app-card" style="--color: #a855f7;">
+                    <div class="icon">📖</div>
+                    <h3>Story Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master storytelling with Claude. 50 prompts for characters, plots, and narratives.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="travel-mastery.html" class="app-card" style="--color: #14b8a6;">
+                    <div class="icon">✈️</div>
+                    <h3>Travel Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master travel planning with Claude. 50 prompts for itineraries and destinations.</p>
+                    <span class="cta">Learn</span>
+                </a>
+
+                <a href="wellness-mastery.html" class="app-card" style="--color: #84cc16;">
+                    <div class="icon">💪</div>
+                    <h3>Wellness Mastery</h3>
+                    <div class="type">Prompts + Guides</div>
+                    <p>Master health with Claude. 50 prompts for fitness, nutrition, and wellness.</p>
+                    <span class="cta">Learn</span>
+                </a>
+            </div>
+
+            <div class="feature-highlight">
+                <h3>✨ What You Get in Each Mastery</h3>
+                <p>Free access to AI tools + 5 starter prompts • Premium: 50 proven prompts, video guides, best practices & monthly updates ($19/month)</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 AI Mastery Empire. Learn. Master. Create.</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: #6b7280;">
+                Prompts & guides to help you master AI tools. Built with honesty, designed for results.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Create random stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.opacity = Math.random() * 0.5 + 0.3;
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
