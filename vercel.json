@@ -1,0 +1,8 @@
+{
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/", "destination": "/dashboard.html" },
+    { "source": "/:path*", "destination": "/:path*" }
+  ]
+}
